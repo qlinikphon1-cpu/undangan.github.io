@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undangan Syukuran Khitanan</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://maps.app.goo.gl/f5GS8joSFjgayEoS6" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5C3A21;
+            --secondary: #C5A059;
+            --accent: #FDF5E6;
+            --dark: #2C1810;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--accent);
+            color: #333;
+            overflow-x: hidden;
+        }
+        .font-title { font-family: 'Playfair Display', serif; }
+        .font-script { font-family: 'Great Vibes', cursive; }
+        
+        .wayang-pattern {
+            background-image: url('bg1.png');
+            opacity: 0.15;
+        }
+        
+        .bg-jawa {
+            background: linear-gradient(rgba(44, 24, 16, 0.8), rgba(44, 24, 16, 0.8)), url('bg.png');
+            background-size: cover;
+            background-position: center;
+        }
+        .bg-jawa1 {
+            background: linear-gradient(rgba(44, 24, 16, 0.8), rgba(44, 24, 16, 0.8)), url('bg2.png');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .wayang-gunungan {
+            width: 150px;
+            filter: drop-shadow(0 0 10px rgba(197, 160, 89, 0.5));
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .gold-text {
+            background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gold {
+            background: linear-gradient(to right, #BF953F, #D4AF37);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 15px -3px rgba(197, 160, 89, 0.3);
+        }
+
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .border-wayang {
+            border: 2px solid var(--secondary);
+            padding: 40px;
+            position: relative;
+            background: rgba(0,0,0,0.4);
+            backdrop-blur: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Opening Overlay -->
+    <div id="overlay">
+        <div class="wayang-pattern absolute inset-0"></div>
+        <div class="text-center p-8 border-wayang m-4 rounded-lg" data-aos="zoom-in">
+            <img src="gunungangold.png" alt="Gunungan" class="w-[100px] md:w-[200px] wayang-gunungan mx-auto mb-6">
+            <h2 class="font-script text-[20px] md:text-4xl mb-4 text-yellow-500">Walimatul Khitan</h2>
+            <h1 class="font-title text-[24px] md:text-5xl font-bold mb-6 gold-text leading-tight">M.Luthfi &<br>M.Arsakha</h1>
+            <p class="mb-8 text-sm md:text-lg opacity-90">Kepada Yth Bapak/Ibu/Saudara/i,</p>
+            <button onclick="openInvitation()" class="btn-gold px-10 py-4 rounded-full font-bold shadow-lg tracking-widest uppercase text-sm">
+                <i class="fas fa-envelope-open-text mr-2"></i> Buka Undangan
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-content" class="hidden">
+        <!-- Hero Section -->
+        <section class="min-h-screen bg-jawa flex items-center justify-center text-center text-white relative overflow-hidden">
+            <div class="absolute inset-0 wayang-pattern"></div>
+            <div class="z-10 px-4" data-aos="fade-up">
+                <p class="font-script text-4xl text-yellow-500 mb-4">Syukuran Khitanan</p>
+                <h1 class="font-title text-5xl md:text-8xl font-bold mb-6 gold-text">Luthfi & Arsakha</h1>
+                <div class="flex justify-center items-center space-x-4 mb-8">
+                    <div class="h-[1px] w-12 bg-yellow-600"></div>
+                    <p class="text-sm md:text-2xl tracking-[0.3em] uppercase font-light">Minggu, 7 Juni 2026</p>
+                    <div class="h-[1px] w-12 bg-yellow-600"></div>
+                </div>
+            </div>
+            <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
+                <i class="fas fa-chevron-down text-2xl text-yellow-500"></i>
+            </div>
+        </section>
+
+        <!-- Opening Section -->
+        <section class="py-24 px-6 text-center max-w-4xl mx-auto relative">
+            <div data-aos="fade-up">
+                <div class="flex justify-center mb-10">
+                    <img src="bismilah.png" alt="Bismilla" class="w-48 mx-auto opacity-80">
+                </div>
+                
+                <p class="italic mb-8 text-amber-900 font-semibold text-lg">
+                    "Assalamu’alaikum Warahmatullahi Wabarakatuh"
+                </p>
+                
+                <p class="mb-12 text-gray-700 leading-relaxed text-lg">
+                     Dengan memohon rahmat dan ridho Allah SWT, kami bermaksud menyelenggarakan syukuran khitanan putra-putra kami:
+                 </p>
+                
+                <div class="grid md:grid-cols-2 gap-8 mb-16">
+                    <div class="p-8 bg-white rounded-2xl shadow-xl border-b-4 border-amber-700" data-aos="fade-right">
+                        <h2 class="font-title text-2xl md:text-3xl font-bold text-amber-900 mb-2">M. Luthfi Al Khawarizmi</h2>
+                        <p class="text-gray-500 italic">Putra Pertama</p>
+                    </div>
+                    <div class="p-8 bg-white rounded-2xl shadow-xl border-b-4 border-amber-700" data-aos="fade-left">
+                        <h2 class="font-title text-2xl md:text-3xl font-bold text-amber-900 mb-2">M. Arsakha Virendra</h2>
+                        <p class="text-gray-500 italic">Putra Kedua</p>
+                    </div>
+                </div>
+                <h2 class="font-title text-2xl font-bold text-amber-900 mb-2 mt-10" data-aos="fade-up">Putra dari <br> Bapak Dian Wahyudi,M.Pd</h2>
+                <p class="text-gray-900 font-medium text-xl font-title leading-relaxed">
+                    Waket II Non Akademik <br> 
+                    STIKES WDIYA HUSADA MEDAN <br>
+                    Ketua Pembina Yayasan Pendidikan <br>
+                    Islamiyah SM.Diski <br>
+                </p>
+                <h2 class="font-title text-[24px] font-bold text-amber-900 mb-2 mt-5" data-aos="fade-up">&</h2>
+                <h2 class="font-title text-[24px] md:text-2xl font-bold text-amber-900 mb-2 mt-5" data-aos="fade-up">Ibu Diah Anggraini Syahputri,S.Pd.I.Gr</h2>
+                <p class="text-gray-900 font-medium text-xl font-title leading-relaxed">
+                    Kepala Sekolah SDS Islamiyah SM.Diski
+                </p>
+                 <h2 class="font-title text-xl md:text-2xl font-bold text-amber-900 mb-2 mt-10" data-aos="fade-up">Cucu Dari :</h2>
+                 <p class="text-gray-900 text-lg font-bold md:text-xl font-title leading-relaxed justify-left items-left font">
+                   - Alm.Ustadz H.Irwansyah,S.Pd.I & Hj.Suzariyah,S.Pd.I
+                </p>
+                 <p class="text-gray-900 text-lg font-medium md:text-xl font-title leading-relaxed justify-left items-left font"> (eyang akung & eyang putri)
+                 </p>
+                 <p class="text-gray-900 font-bold text-lg md:text-xl font-title leading-relaxed justify-left items-left">
+                   - Muhammad Syahlan & Sumini
+                </p>
+                 <p class="text-gray-900 font-medium text-lg md:text-xl font-title leading-relaxed justify-left items-left font">
+                   (atok & nenek)
+                </p>
+            </div>
+        </section>
+
+        <!-- Event Details -->
+        <section class="py-24 bg-white relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 opacity-5 pointer-events-none">
+                <img src="gunungan.png" alt="pattern">
+            </div>
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="bg-amber-50 p-12 rounded-3xl shadow-2xl border-l-8 border-amber-800" data-aos="fade-right">
+                        <h3 class="font-title text-[24px] md:text-4xl font-bold text-amber-900 mb-10 flex items-center">
+                            <i class="fas fa-calendar-day mr-6 text-amber-700"></i> Waktu & Tempat
+                        </h3>
+                        
+                        <div class="space-y-10">
+                            <div class="flex items-start">
+                                <div class="bg-amber-800 p-4 rounded-xl text-white mr-6 shadow-lg">
+                                    <i class="fas fa-clock text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xl text-amber-900">09.00 WIB - Selesai</h4>
+                                    <p class="text-amber-800 font-medium">Minggu, 7 Juni 2026</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-amber-800 p-4 rounded-xl text-white mr-6 shadow-lg">
+                                    <i class="fas fa-map-marked-alt text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-xl text-amber-900">Kediaman Shohibul Hajat</h4>
+                                    <p class="text-gray-600 mb-4 text-sm font-title">Dusun I JL.H.Abdur Rahman Gang Keluarga V, Kec.Sunggal, Kab.Deli Serdang</p>
+                                    <a href="https://maps.app.goo.gl/rMdjCF4Xba67wYJh7" target="_blank" class="inline-flex items-center btn-gold px-6 py-2 rounded-full text-xs font-bold tracking-wider">
+                                        <i class="fas fa-location-arrow mr-2"></i> GOOGLE MAPS
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="relative mt-12 md:mt-0" data-aos="fade-left">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl border-8 md:border-[12px] border-white transform rotate-2 md:rotate-3 mx-auto">
+                            <img src="fto1.png" alt="Tradisi Jawa" class="w-100 h-64 sm:h-80 md:h-[450px] object-cover">
+                        </div>
+                        <!-- <div class="absolute -bottom-4 -left-4 md:-bottom-6 md:-left-6 bg-amber-800 text-white p-4 md:p-6 rounded-2xl shadow-xl -rotate-6 hidden sm:block">
+                            <p class="font-script text-xl md:text-2xl">Budaya Jawa</p>
+                        </div> -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+          <section class="min-h-screen bg-jawa1 flex items-center justify-center text-center  text-white relative overflow-hidden">
+            <div class="absolute inset-0 wayang-pattern"></div>
+                <div class="z-10 px-4" data-aos="fade-up">
+                <h1 class="font-title text-4xl md:text-8xl font-bold mb-6 gold-text gap-4">Turut Mengundang</h1>
+                <h1 class="font-title text-4xl md:text-8xl font-bold mb-6 gold-text gap-4">Seluruh Keluarga</h1>
+                </div>
+         </section>
+
+        <!-- Digital Gift Section -->
+        <section class="py-24 bg-white relative">
+            <div class="container mx-auto px-6 text-center max-w-3xl">
+                <div class="bg-amber-900/5 p-12 rounded-[3rem] border-2 border-dashed border-amber-300 relative overflow-hidden" data-aos="fade-up">
+                    <div class="absolute top-20 left-10 w-24 h-24 opacity-10 -translate-x-1/2 -translate-y-1/2">
+                        <img src="gunungan.png" alt="gunungan">
+                    </div>
+                                   
+                    <h2 class="font-title text-4xl font-bold text-amber-900 mb-6">Kirim Hadiah</h2>
+                    <p class="text-gray-600 mb-12 text-lg">Tanpa mengurangi rasa hormat, bagi Bapak/Ibu/Saudara/i yang ingin memberikan tanda kasih untuk putra-putra kami, dapat melalui:</p>
+                    
+                    <div class="grid gap-8">
+                        <div class="bg-white p-8 rounded-3xl shadow-xl border border-amber-100 flex flex-col items-center group hover:border-amber-500 transition-colors">
+                            <img src="brimo.png" alt="BCA" class="h-10 mb-6">
+                            <p class="font-bold text-1xl md:text-2xl text-amber-900 tracking-widest">No Rek</p>
+                            <p id="rekening" class="font-bold text-1xl md:text-2xl text-amber-900 tracking-widest mb-2">530401006466506</p>
+                             <p class="text-gray-500 font-medium mb-6">A/N Diah Anggraini</p>
+                            <button onclick="copyToClipboard(document.getElementById('rekening').textContent)"  class="btn-gold px-8 py-3 rounded-full text-sm font-bold shadow-md uppercase tracking-wider">
+                                <i class="fas fa-copy mr-2"></i> Salin Rekening
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- RSVP / Guestbook -->
+        <!-- <section class="py-24 bg-amber-900 relative">
+            <div class="absolute inset-0 wayang-pattern opacity-10"></div>
+            <div class="container mx-auto px-6 max-w-2xl relative">
+                <div class="bg-white p-12 rounded-[2.5rem] shadow-2xl" data-aos="fade-up">
+                    <h2 class="font-title text-4xl font-bold text-amber-900 text-center mb-10">Buku Tamu</h2>
+                    <form class="space-y-6">
+                        <div>
+                            <label class="block text-sm font-bold text-amber-900 mb-2 uppercase tracking-wide">Nama Lengkap</label>
+                            <input type="text" class="w-full px-6 py-4 rounded-2xl bg-amber-50 border-none focus:ring-2 focus:ring-amber-500 outline-none transition" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-amber-900 mb-2 uppercase tracking-wide">Kehadiran</label>
+                            <select class="w-full px-6 py-4 rounded-2xl bg-amber-50 border-none focus:ring-2 focus:ring-amber-500 outline-none transition appearance-none">
+                                <option>Hadir</option>
+                                <option>Tidak Hadir</option>
+                                <option>Masih Ragu</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-amber-900 mb-2 uppercase tracking-wide">Pesan / Doa</label>
+                            <textarea class="w-full px-6 py-4 rounded-2xl bg-amber-50 border-none focus:ring-2 focus:ring-amber-500 outline-none h-40 transition" placeholder="Tuliskan doa & harapan Anda untuk M. Luthfi & M. Arsakha"></textarea>
+                        </div>
+                        <button type="button" class="w-full btn-gold py-5 rounded-2xl font-black text-lg shadow-xl uppercase tracking-[0.2em]">
+                            Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section> -->
+
+        <!-- Health Protocol / Note -->
+        <section class="py-20 bg-amber-950 text-white text-center">
+            <div class="container mx-auto px-6" data-aos="zoom-in">
+                <img src="gunungangold.png" class="h-20 mx-auto mb-8 gold-text brightness-200" alt="gunungan">
+                <h3 class="font-title text-3xl mb-8 gold-text">Terimakasih</h3>
+                <p class="max-w-3xl mx-auto opacity-80 leading-relaxed text-lg">
+                    Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir untuk memberikan doa terbaik kepada putra-putra kami.
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="py-10 bg-accent text-center text-gray-500">
+            <p class="mb-4 text-sm">Hormat Kami,</p>
+            <p class="font-title text-1xl md:text-3xl text-amber-900 font-bold mb-10 leading-relaxed">
+                Keluarga Bapak Dian Wahyudi, M.Pd <br> 
+                & Ibu Diah Anggraini Syahputri, S.Pd.I.Gr
+            </p>
+            <div class="pt-5 border-t border-amber-200">
+                <p class="tracking-widest uppercase text-xs font-bold">&copy; 2026 Arsy & Arumi Digital Creation</p>
+                <p class="mt-2 text-[10px] opacity-80">Designed By Rudy Febrianto,S.Kom</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Music Player -->
+    <div id="music-control" class="fixed bottom-6 right-6 z-50 hidden">
+        <button onclick="toggleMusic()" class="bg-amber-700 text-white w-12 h-12 rounded-full shadow-2xl flex items-center justify-center animate-spin-slow">
+            <i id="music-icon" class="fas fa-music"></i>
+        </button>
+        <audio id="bg-music" loop>
+            <source src="mbg.MP3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+
+        const music = document.getElementById('bg-music');
+        const musicIcon = document.getElementById('music-icon');
+        const musicControl = document.getElementById('music-control');
+        let isPlaying = false;
+
+        function openInvitation() {
+            document.getElementById('overlay').style.transform = 'translateY(-100%)';
+            document.getElementById('main-content').classList.remove('hidden');
+            musicControl.classList.remove('hidden');
+            
+            // Auto play music
+            playMusic();
+            
+            // Start countdown
+            startCountdown();
+        }
+
+        function playMusic() {
+            music.play().then(() => {
+                isPlaying = true;
+                musicIcon.classList.remove('fa-music');
+                musicIcon.classList.add('fa-pause');
+            }).catch(error => {
+                console.log("Autoplay blocked");
+            });
+        }
+
+        function toggleMusic() {
+            if (isPlaying) {
+                music.pause();
+                musicIcon.classList.remove('fa-pause');
+                musicIcon.classList.add('fa-play');
+            } else {
+                music.play();
+                musicIcon.classList.remove('fa-play');
+                musicIcon.classList.add('fa-pause');
+            }
+            isPlaying = !isPlaying;
+        }
+
+        function startCountdown() {
+            const targetDate = new Date("June 7, 2026 09:00:00").getTime();
+            
+            const x = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                // If countdown is needed UI-wise, we can add it here.
+                // For now, it's just a logic placeholder.
+                
+                if (distance < 0) {
+                    clearInterval(x);
+                }
+            }, 1000);
+        }
+
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Nomor rekening berhasil disalin!');
+            });
+        }
+    </script>
+</body>
+</html>
